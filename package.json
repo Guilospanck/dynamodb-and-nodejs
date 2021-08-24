@@ -1,0 +1,11 @@
+{
+  "name": "DynamoDBAndNodejs",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/Guilospanck/DynamoDBAndNodejs.git",
+  "author": "guilospanck <guilherme.rp2010@hotmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.27.0"
+  }
+}
