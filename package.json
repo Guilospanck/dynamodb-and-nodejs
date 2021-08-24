@@ -6,6 +6,8 @@
   "author": "guilospanck <guilherme.rp2010@hotmail.com>",
   "license": "MIT",
   "dependencies": {
-    "@aws-sdk/client-dynamodb": "^3.27.0"
+    "@aws-sdk/client-dynamodb": "^3.27.0",
+    "@aws-sdk/lib-dynamodb": "^3.27.0",
+    "@aws-sdk/util-dynamodb": "^3.27.0"
   }
 }

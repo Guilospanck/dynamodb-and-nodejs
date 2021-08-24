@@ -1,24 +1,23 @@
-const AWS = require('aws-sdk')
-AWS.config.update({
+const { DynamoDB } = require("@aws-sdk/client-dynamodb");
+
+const dynamoDB = new DynamoDB({
   region: 'us-east-1',
   endpoint: 'http://localhost:8000'
 })
-
-var ddb = new AWS.DynamoDB()
 
 var params = {
   TableName: process.argv[2]
 };
 
-// Call DynamoDB to delete the specified table
-ddb.deleteTable(params, function (err, data) {
-  if (err && err.code === 'ResourceNotFoundException') {
-    console.log("Error: Table not found");
-  } else if (err && err.code === 'ResourceInUseException') {
-    console.log("Error: Table in use");
-  } else {
+async function run() {
+  try {
+    const data = await dynamoDB.deleteTable(params);
     console.log("Success", data);
   }
-});
+  catch (err) {
+    console.log("Error: ", err)
+  }
+}
+run()
 
 // USE: node src/table/deleteTable.js TABLE_NAME

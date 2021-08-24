@@ -1,10 +1,9 @@
-const AWS = require('aws-sdk')
-AWS.config.update({
+const { DynamoDB } = require("@aws-sdk/client-dynamodb");
+
+const dynamoDB = new DynamoDB({
   region: 'us-east-1',
   endpoint: 'http://localhost:8000'
 })
-
-var ddb = new AWS.DynamoDB()
 
 var params = {
   AttributeDefinitions: [
@@ -58,13 +57,15 @@ var params = {
     WriteCapacityUnits: 1
   },
   TableName: 'hdr'
-};
+}
 
-// Call DynamoDB to create the table
-ddb.createTable(params, function (err, data) {
-  if (err) {
-    console.log("Error", err);
-  } else {
-    console.log("Table Created", data);
+async function run (){
+  try {
+    const data = await dynamoDB.createTable(params);
+    console.log("Success", data);
   }
-});
+  catch (err) {
+    console.log("Error", err);
+  }
+}
+run()

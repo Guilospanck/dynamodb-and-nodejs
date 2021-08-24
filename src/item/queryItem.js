@@ -1,11 +1,13 @@
-const AWS = require('aws-sdk')
-AWS.config.update({
+const { DynamoDB } = require("@aws-sdk/client-dynamodb");
+const { DynamoDBDocument } = require("@aws-sdk/lib-dynamodb");
+
+const dynamoDB = new DynamoDB({
   region: 'us-east-1',
   endpoint: 'http://localhost:8000'
 })
 
 // CRUD table with Document Client (abstraction)
-const documentClient = new AWS.DynamoDB.DocumentClient();
+const documentClient = DynamoDBDocument.from(dynamoDB)
 
 const mac = "4548aabb0001"
 const serviceType = 4
@@ -42,7 +44,13 @@ var params = {
   }
 };
 
-documentClient.query(params, function (err, data) {
-  if (err) console.log(err);
-  else console.log(data);
-});
+async function run() {
+  try {
+    const data = await documentClient.query(params)
+    console.log("Success", data);
+  }
+  catch (err) {
+    console.log("Error", err);
+  }
+}
+run()

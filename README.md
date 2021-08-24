@@ -21,8 +21,9 @@ yarn add aws-sdk
 ```
 To install v3 for DynamoDB, do:
 ```bash
-yarn add @aws-sdk/client-dynamodb
+yarn add @aws-sdk/client-dynamodb @aws-sdk/lib-dynamodb @aws-sdk/util-dynamodb
 ```
+> You may reference to the branches in order to see the differences between v2 and v3 SDKs.
 
 - To run locally, you need to AWS configure. To do that, follow this:
 ```bash
@@ -31,10 +32,11 @@ AWS Access Key ID []: local
 AWS Secret Access Key []: local
 Default region name []: us-east-1
 Default output format [None]:
-
 ```
 
 # Referencies
 - [AWS Docs - Class DocumentClient](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB/DocumentClient.html)
-- [AWS Docs - Using DocumentClient](https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/dynamodb-example-document-client.html)
+- [AWS Docs - Using DocumentClient AWS SDK v2](https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/dynamodb-example-document-client.html)
+- [AWS Docs - Using DocumentClient AWS SDK v3](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/dynamodb-example-dynamodb-utilities.html)
 - [AWS Docs - Getting Started With DynamoDB](https://docs.amazonaws.cn/en_us/amazondynamodb/latest/developerguide/GettingStartedDynamoDB.html)
+- [AWS Docs - AWS SDK v3 DynamoDB Client](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-dynamodb/globals.html)

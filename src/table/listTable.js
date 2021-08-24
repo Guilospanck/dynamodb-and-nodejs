@@ -1,16 +1,21 @@
-const AWS = require('aws-sdk')
-AWS.config.update({
+const { DynamoDB } = require("@aws-sdk/client-dynamodb");
+
+const dynamoDB = new DynamoDB({
   region: 'us-east-1',
   endpoint: 'http://localhost:8000'
 })
 
-var ddb = new AWS.DynamoDB()
+var params = {
+  Limit: 10
+}
 
-// Call DynamoDB to retrieve the list of tables
-ddb.listTables({ Limit: 10 }, function (err, data) {
-  if (err) {
-    console.log("Error", err.code);
-  } else {
-    console.log("Table names are ", data.TableNames);
+async function run() {
+  try {
+    const data = await dynamoDB.listTables(params);
+    console.log("Table names are: ", data.TableNames);
   }
-});
+  catch (err) {
+    console.log("Error", err);
+  }
+}
+run()
