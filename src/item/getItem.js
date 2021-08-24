@@ -11,7 +11,7 @@ const documentClient = DynamoDBDocument.from(dynamoDB)
 
 const mac = "4548aabb0001"
 const serviceType = 4
-const createdAt = "2021-08-21T14:11:18.000Z"
+const createdAt = "2021-08-21T14:11:19.000Z"
 const companyId = 1
 const collectorProvId = 1
 const rssi = -93

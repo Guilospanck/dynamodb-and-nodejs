@@ -23,7 +23,7 @@ To install v3 for DynamoDB, do:
 ```bash
 yarn add @aws-sdk/client-dynamodb @aws-sdk/lib-dynamodb @aws-sdk/util-dynamodb
 ```
-> You may reference to the branches in order to see the differences between v2 and v3 SDKs.
+> You may reference to the commits in order to see the differences between v2 and v3 SDKs.
 
 - To run locally, you need to AWS configure. To do that, follow this:
 ```bash
@@ -32,6 +32,23 @@ AWS Access Key ID []: local
 AWS Secret Access Key []: local
 Default region name []: us-east-1
 Default output format [None]:
+```
+
+## Running this POC
+- Git clone this repository:
+```bash
+git clone https://github.com/Guilospanck/DynamoDBAndNodejs.git
+```
+
+- Run <code>yarn install</code> to install depedencies.
+
+- Be sure to have the image in Docker up and running (see <b>Step-By-Step</b> for more information).
+
+- And then run:
+```bash
+node src/table/createTable.js    // to create a new DynamoDB table
+node src/item/insertItem.js      // to insert a new item in the table
+node src/item/getItem.js         // to get the new item inserted
 ```
 
 # Referencies
