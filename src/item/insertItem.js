@@ -9,9 +9,9 @@ const dynamoDB = new DynamoDB({
 // CRUD table with Document Client (abstraction)
 const documentClient = DynamoDBDocument.from(dynamoDB)
 
-const mac = "4548aabb0001"
+const mac = "4548aabb0003"
 const serviceType = 4
-const createdAt = "2021-08-21T14:11:19.000Z"
+const createdAt = "2021-08-23T14:11:19.000Z"
 const companyId = 1
 const collectorProvId = 1
 const rssi = -93
@@ -27,7 +27,9 @@ var params = {
     mac: mac,
     rssi: rssi,
     raw: raw,
-    createdAt: createdAt,    
+    createdAt: createdAt,  
+    serviceType: serviceType,
+    Type: 'IoT'  
   }
 };
 

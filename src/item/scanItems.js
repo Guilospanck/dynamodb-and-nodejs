@@ -10,8 +10,8 @@ const dynamoDB = new DynamoDB({
 const documentClient = DynamoDBDocument.from(dynamoDB)
 
 // query
-const startDate = "2021-08-20T14:11:18.000Z"
-const endDate = "2021-08-27T14:11:18.000Z"
+const startDate = "2021-08-21T14:11:19.000Z"
+const endDate = "2021-08-24T14:11:19.000Z"
 
 /**
  * REMEMBER: SCAN IS TOO COSTLY TO USE. USE QUERY INSTEAD, OTHERWISE AWS BILLING WILL GO HIGH.

@@ -18,6 +18,10 @@ var params = {
     {
       AttributeName: 'createdAt',
       AttributeType: 'S'
+    },
+    {
+      AttributeName: 'Type',
+      AttributeType: 'S'
     }
   ],
   KeySchema: [
@@ -32,10 +36,10 @@ var params = {
   ],
   GlobalSecondaryIndexes: [ // GSI
     {
-      IndexName: "pk-createdAt-index",
+      IndexName: "Type-createdAt-index",
       KeySchema: [
         {
-          AttributeName: "PK",
+          AttributeName: "Type",
           KeyType: "HASH"
         },
         {
