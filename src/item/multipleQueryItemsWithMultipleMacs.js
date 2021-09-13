@@ -13,12 +13,12 @@ const dynamoDB = new DynamoDB({
 // CRUD table with Document Client (abstraction)
 const documentClient = DynamoDBDocument.from(dynamoDB)
 
-const serviceType = 3
-const macs = ['454815000021', '454815000029']
+const serviceType = 4
+const macs = ['454816000002', '454816000001']
 
 // query
-const startDate = "2021-08-31T14:11:18.000Z"
-const endDate = "2021-09-01T14:11:18.000Z"
+const startDate = "2021-09-01T22:34:01.000Z"
+const endDate = "2021-09-13T22:34:01.000Z"
 
 /**
  * OBS.: the hashing key (partition key) can only be used with EQUALITY operator.
@@ -33,7 +33,7 @@ async function getItemsFromMacs(){
       TableName: 'iot',
       KeyConditionExpression: '#PK = :PK and #createdAt BETWEEN :startDate and :endDate',
       ExpressionAttributeValues: {
-        ':PK': `IOT#${mac}#${serviceType}`,
+        ':PK': `${mac}#${serviceType}`,
         ':startDate': startDate,
         ':endDate': endDate,
       },
@@ -65,8 +65,10 @@ async function queryRecursively(params) {
 
 async function run() {
   try {
+    console.time('dynamodb')
     await getItemsFromMacs()
-    console.log("Success", dataToReturn);
+    console.timeEnd('dynamodb')
+    console.log("Success", dataToReturn.length);
   }
   catch (err) {
     console.log("Error", err);
