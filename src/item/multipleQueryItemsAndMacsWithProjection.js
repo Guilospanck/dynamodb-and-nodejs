@@ -27,8 +27,8 @@ const endDate = "2021-09-16T22:34:01.000Z"
  * A query operation will read a maximum of 1MB of data. More than that, you'll need to paginate.
  */
 
-async function getItemsFromMacs(){
-  for(const mac of macs){
+async function getItemsFromMacs() {
+  for (const mac of macs) {
     let params = {
       TableName: 'iot',
       KeyConditionExpression: '#PK = :PK and #createdAt BETWEEN :startDate and :endDate',
@@ -39,8 +39,10 @@ async function getItemsFromMacs(){
       },
       ExpressionAttributeNames: {
         '#PK': 'PK',
-        '#createdAt': 'SK'
-      }
+        '#createdAt': 'SK',
+        '#raw': 'raw'
+      },
+      ProjectionExpression: "mac, #raw, createdAt"
     }
 
     await queryRecursively(params)
