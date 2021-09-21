@@ -44,32 +44,45 @@ async function getItemsFromMacs() {
       IndexName: 'macAndServiceType-createdAt-index'
     }
 
-    await queryRecursively(params)
+    arrayOfPromises.push(queryRecursively(params))
 
   }
 }
 
 let dataToReturn = []
+const arrayOfPromises = [];
 async function queryRecursively(params) {
-  const data = await documentClient.query(params)
-  for (item of data.Items) dataToReturn.push(item)
 
-  if (data.LastEvaluatedKey) { // there are more than 1 MB of data to be retrieved
-    params = {
-      ...params,
-      ExclusiveStartKey: data.LastEvaluatedKey
+  const promise = new Promise(async (resolve, reject) => {
+
+    const data = await documentClient.query(params)
+    for (item of data.Items) dataToReturn.push(item)
+  
+    if (data.LastEvaluatedKey) { // there are more than 1 MB of data to be retrieved
+      params = {
+        ...params,
+        ExclusiveStartKey: data.LastEvaluatedKey
+      }
+  
+      resolve(await queryRecursively(params))
     }
 
-    await queryRecursively(params)
-  }
+    resolve(true)
+
+  })
+
+  return promise
+
 }
 
 async function run() {
   try {
     console.time('dynamodb')
-    await getItemsFromMacs()
-    console.timeEnd('dynamodb')
-    console.log("Success", dataToReturn.length);
+    getItemsFromMacs()
+    Promise.all(arrayOfPromises).then((res) => {
+      console.timeEnd('dynamodb')
+      console.log("Success", dataToReturn.length);
+    })
   }
   catch (err) {
     console.log("Error", err);

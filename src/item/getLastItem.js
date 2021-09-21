@@ -7,7 +7,7 @@ const dynamoDB = new DynamoDB({
   credentials: {
     accessKeyId: 'local',
     secretAccessKey: 'local'
-  }
+  },
 })
 
 // CRUD table with Document Client (abstraction)
