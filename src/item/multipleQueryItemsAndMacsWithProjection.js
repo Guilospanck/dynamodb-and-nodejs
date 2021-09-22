@@ -14,11 +14,11 @@ const dynamoDB = new DynamoDB({
 const documentClient = DynamoDBDocument.from(dynamoDB)
 
 const serviceType = 3
-const macs = ['454816000006', '454816000002', '454816000001']
+const macs = ['454806000001','454806000002','454806000004','454806000006']
 
 // query
-const startDate = "2021-09-16T22:34:01.000Z"
-const endDate = "2021-09-21T17:00:01.000Z"
+const startDate = "2021-09-14T19:46:50.818Z"
+const endDate = "2021-09-21T19:46:50.818Z"
 
 /**
  * OBS.: the hashing key (partition key) can only be used with EQUALITY operator.
