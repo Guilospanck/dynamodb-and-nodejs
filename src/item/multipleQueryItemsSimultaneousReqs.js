@@ -27,7 +27,8 @@ const endDate = "2021-09-21T19:46:50.818Z"
  * A query operation will read a maximum of 1MB of data. More than that, you'll need to paginate.
  */
 
-async function getItemsFromMacs() {
+const arrayOfPromises = []
+function getItemsFromMacs() {
   for (const mac of macs) {
     let params = {
       TableName: 'iot',
@@ -44,44 +45,37 @@ async function getItemsFromMacs() {
       IndexName: 'macAndServiceType-createdAt-index'
     }
 
-    arrayOfPromises.push(queryRecursively(params))
+    arrayOfPromises.push(query(params))
 
   }
 }
 
+async function query(params) {
+  return queryRecursively(params)
+}
+
 let dataToReturn = []
-const arrayOfPromises = [];
 async function queryRecursively(params) {
+  const data = await documentClient.query(params)
+  for (item of data.Items) dataToReturn.push(item)
 
-  const promise = new Promise(async (resolve, reject) => {
-
-    const data = await documentClient.query(params)
-    for (item of data.Items) dataToReturn.push(item)
-  
-    if (data.LastEvaluatedKey) { // there are more than 1 MB of data to be retrieved
-      params = {
-        ...params,
-        ExclusiveStartKey: data.LastEvaluatedKey
-      }
-  
-      resolve(await queryRecursively(params))
+  if (data.LastEvaluatedKey) { // there are more than 1 MB of data to be retrieved
+    params = {
+      ...params,
+      ExclusiveStartKey: data.LastEvaluatedKey
     }
 
-    resolve(true)
-
-  })
-
-  return promise
-
+    await queryRecursively(params)
+  }
 }
 
 async function run() {
   try {
     console.time('dynamodb')
     getItemsFromMacs()
-    Promise.all(arrayOfPromises).then((res) => {
+    Promise.all(arrayOfPromises).then(res => {
       console.timeEnd('dynamodb')
-      console.log("Success", dataToReturn.length);
+      console.log("Success", dataToReturn.length);      
     })
   }
   catch (err) {
